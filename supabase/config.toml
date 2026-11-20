@@ -1,0 +1,4 @@
+[functions.payhero-webhook]
+# PayHero cannot send a Supabase JWT. The function verifies each callback by
+# querying PayHero's authenticated transaction-status API before writing funds.
+verify_jwt = false
