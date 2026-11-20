@@ -26,7 +26,7 @@ See [docs/PAYMENTS.md](docs/PAYMENTS.md).
 
 ## Deployment outline
 
-- Frontend: deploy `frontend/` to Vercel. Production API URL: `https://numora-1.onrender.com/api`; set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in Vercel.
+- Frontend: deploy `frontend/` to Vercel. Production API URL: `https://numora-1.onrender.com/api`; set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in Vercel as **Config** variables (all `VITE_*` values are included in the browser bundle). Keep service-role and PayHero credentials only on the backend host as **Secret** variables.
 - API: deployed at `https://numora-1.onrender.com`; set `FRONTEND_URL=https://frontend-woad-six-10.vercel.app` in Render and configure server secrets.
 - Database: create Supabase project, apply migrations, enable email verification and configure allowed redirect URLs.
 - Webhooks: configure the public HTTPS API URL in PayHero and any authorized telecom provider.
