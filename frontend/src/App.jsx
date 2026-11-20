@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import {Link,Navigate,useLocation,useNavigate} from 'react-router-dom';
 import {Activity,ArrowDownLeft,ArrowRight,Bell,BellRing,Check,CheckCircle2,CircleAlert,ChevronDown,ChevronRight,Clock,CreditCard,Globe,Headphones,Inbox,KeyRound,LayoutDashboard,LogOut,Menu,MessageSquare,MoreHorizontal,Plus,Save,Search,Settings,ShieldCheck,Smartphone,UserRound,Wallet,X} from 'lucide-react';
-const API=import.meta.env.VITE_API_URL||'http://localhost:5000/api';
+const API=import.meta.env.VITE_API_URL||'https://numora-1.onrender.com/api';
 let authClient;
 async function getAuthClient(){const url=import.meta.env.VITE_SUPABASE_URL,key=import.meta.env.VITE_SUPABASE_ANON_KEY;if(!url||!key)throw Error('Sign-in is temporarily unavailable. Please try again later.');if(!authClient){const {createClient}=await import('@supabase/supabase-js');authClient=createClient(url,key)}return authClient}
 const nav=[['Overview',LayoutDashboard,'/dashboard'],['Marketplace',Globe,'/marketplace'],['My numbers',Smartphone,'/numbers'],['Messages',Inbox,'/messages'],['Wallet',Wallet,'/wallet'],['Support',Headphones,'/support']];
