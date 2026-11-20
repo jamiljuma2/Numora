@@ -18,6 +18,8 @@ app.disable('x-powered-by');app.set('trust proxy',1);app.use(helmet());app.use(c
 // Preserve the exact provider callback body for verification and incident review.
 app.use(express.json({limit:'100kb',verify:(req,res,buf)=>{if(req.originalUrl.includes('/webhooks/'))req.rawBody=Buffer.from(buf)}}));
 app.use('/api',rateLimit({windowMs:60_000,limit:120,standardHeaders:true,legacyHeaders:false}));
+app.get('/',(req,res)=>res.json({service:'Numora API',status:'online',health:'/api/health',message:'The Numora backend is running.'}));
+app.get('/api',(req,res)=>res.json({service:'Numora API',status:'online',health:'/api/health'}));
 const fail=(res,status,error)=>res.status(status).json({error});
 const configured=()=>Boolean(supabase);
 async function bearerUser(req,res,next){try{const token=(req.headers.authorization||'').replace(/^Bearer\s+/i,'');if(!token||!supabase)return fail(res,401,'Authentication required.');const {data,error}=await supabase.auth.getUser(token);if(error||!data.user)return fail(res,401,'Your session has expired. Please sign in again.');const {data:profile}=await supabase.from('profiles').select('status').eq('id',data.user.id).maybeSingle();if(profile?.status==='suspended')return fail(res,403,'Account suspended.');req.user=data.user;req.profile=profile;next()}catch(e){next(e)}}
